@@ -11,7 +11,7 @@ export class DropdownComponent implements OnInit {
   selectedLevel:any
   value:any
   localItem:any
-
+  malav:any[]=[]
   data:any[] = [
       {id: 1, name: "1"},
       {id: 2, name: "2"},
@@ -28,7 +28,7 @@ export class DropdownComponent implements OnInit {
 
   alluser: any[];
   constructor(private common: CommonService) {
-    this.localItem=localStorage.getItem("this.alluser")
+    this.localItem=localStorage.getItem("user")
     if(this.localItem == null){
       this.alluser=[];
     }
@@ -46,11 +46,26 @@ export class DropdownComponent implements OnInit {
 
   allUser(){
     console.log(this.selectedLevel.id)
+    this.alluser = JSON.parse(localStorage.getItem('user') || '[]');
+
     this.common.getAll(this.selectedLevel.id).subscribe((response:any) => {
       console.log(response, 'check');
-      this.alluser = response['data']
+      this.alluser = this.alluser.concat(response['data'])
       localStorage.setItem("user",JSON.stringify(this.alluser));
+      this.alluser = JSON.parse(localStorage.getItem('user') || '[]');
+      
     });
     // localStorage.setItem("alluser",JSON.stringify(this.allUser));
+  }
+
+  deletePerson(data:any){
+    console.log(data,"check");
+    this.alluser.length = 0
+    this.alluser = JSON.parse(localStorage.getItem('user') || '[]');
+    this.alluser = this.alluser.filter(item=>item.id != data)
+    localStorage.setItem("user",JSON.stringify(this.alluser));
+    console.log(this.alluser,"check2");
+
+        // localStorage.removeItem("");
   }
 }

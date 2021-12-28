@@ -1,36 +1,50 @@
 <h3>Get the data according to page number</h3>
 <label>Select Page Number</label>
-<select [(ngModel)]="selectedLevel" (change)="selected()"> 
-    <option  *ngFor="let item of data" [ngValue]="item">
-       {{item.name}} 
-      </option>
-    </select>
-    <br>
-    <br>
-    <button (click)="allUser()">Get All User</button>
+<select [(ngModel)]="selectedLevel" (change)="selected()">
+  <option *ngFor="let item of data" [ngValue]="item">
+    {{ item.name }}
+  </option>
+</select>
+<br />
+<br />
+<button (click)="allUser()">Get All User</button>
+
+<table border="1">
+  <tr>
+    <th>Records</th>
+    
+  </tr>
+    <div *ngFor="let user of alluser">
+      <tr>
+        {{
+          user.id
+        }}
+      </tr>
+      <tr>
+        {{
+          user.email
+        }}
+      </tr>
+      <tr>
+        {{
+          user.first_name
+        }}
+      </tr>
+      <tr>
+        {{
+          user.last_name
+        }}
+      </tr>
+      <tr>
+        {{
+          user.avatar
+        }}
+      </tr>
+
+      <button (click)="deletePerson(user.id)">Delete</button>
+
+    </div>
+</table>
 
 
-    <table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Email</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Avtar</th>
-    </tr>
-    <td>    
-        <tr *ngFor="let user of alluser">{{user.id}}</tr>
-    </td>
-    <td>
-        <tr *ngFor="let user of alluser">{{user.email}}</tr>
-    </td>
-    <td>
-        <tr *ngFor="let user of alluser">{{user.first_name}}</tr>
-    </td>
-    <td>
-        <tr *ngFor="let user of alluser">{{user.last_name}}</tr>
-    </td>
-    <td>
-        <tr *ngFor="let user of alluser">{{user.avatar}}</tr>
-    </td>
-    </table>
+
